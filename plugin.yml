@@ -1,7 +1,7 @@
-name: BowHearts
+name: VMBowHealth
 description: Simple Plugin give health of person you hit with arrow
-author: BalAnce
-version: 0.1
+author: VMPE Development Team
+version: 1.0.0-Beta
 main: bh\main
-api: 1.12.0
+api: 3.0.0-ALPHA10
  
