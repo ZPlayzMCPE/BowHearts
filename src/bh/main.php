@@ -12,9 +12,9 @@ class main extends PluginBase implements Listener{
 		$this->getServer()->getPluginManager()->registerEvents($this, $this);
 		@mkdir($this->getDataFolder());
 		$this->config = new Config($this->getDataFolder()."config.yml",Config::YAML,array(
-				"Msg" => "Player {PLAYER} has {HEALTH}/{MAXHEALTH}",
+				"Msg" => "§aPlayer §b{PLAYER} §ahas §4{HEALTH}§6/§4{MAXHEALTH}",
 				"Message" => "true",
-				"Popup" => "false"
+				"Popup" => "true"
 		));
 		$this->config->save();
 	}
