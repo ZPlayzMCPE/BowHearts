@@ -1,34 +1,34 @@
 <?php
 namespace bh;
 
-use pocketmine\plugin\PluginBase;
-use pocketmine\event\Listener;
-use pocketmine\utils\Config;
-use pocketmine\event\entity\EntityDamageEvent;
 use pocketmine\event\entity\EntityDamageByEntityEvent;
+use pocketmine\event\entity\EntityDamageEvent;
+use pocketmine\event\Listener;
 use pocketmine\Player;
+use pocketmine\plugin\PluginBase;
+use pocketmine\utils\Config;
 class main extends PluginBase implements Listener{
 	public function onEnable(){
 		$this->getServer()->getPluginManager()->registerEvents($this, $this);
 		@mkdir($this->getDataFolder());
 		$this->config = new Config($this->getDataFolder()."config.yml",Config::YAML,array(
-				"Msg" => "§aPlayer §b{PLAYER} §ahas §4{HEALTH}§6/§4{MAXHEALTH}",
+				"Msg" => "Player {PLAYER} has {HEALTH}/{MAXHEALTH}",
 				"Message" => "true",
-				"Popup" => "true"
+				"Popup" => "false"
 		));
 		$this->config->save();
 	}
 	
 	public function onHit(EntityDamageEvent $ev){
-		$entity = $ev->getEntity();
+		$player = $ev->getEntity();
 			if ($ev->getCause() === EntityDamageByEntityEvent::CAUSE_PROJECTILE){
-				if ($entity instanceof Player){
+                                if ($player instanceof Entity){
 					$shooter = $ev->getDamager();
-						if ($shooter instanceof Player){
+						if ($shooter instanceof Entity){
 							$msg = $this->config->get("Msg");
-							$msg = str_replace("{PLAYER}", $entity->getName(), $msg);
-							$msg = str_replace("{HEALTH}", $entity->getHealth(), $msg);
-							$msg = str_replace("{MAXHEALTH}", $entity->getMaxHealth(), $msg);
+							$msg = str_replace("{PLAYER}", $player->getName(), $msg);
+							$msg = str_replace("{HEALTH}", $player->getHealth(), $msg);
+							$msg = str_replace("{MAXHEALTH}", $player->getMaxHealth(), $msg);
 							if ($this->config->get("Message") === "true"){
 								$shooter->sendMessage($msg);
 							} 
